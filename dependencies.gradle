@@ -1,0 +1,56 @@
+ext {
+    versions = [
+            "coreKtx"           :   "1.7.0",
+            "appCompat"         :   "1.4.1",
+            "material"          :   "1.5.0",
+            "constraintLayout"  :   "2.1.3",
+            "koin"              :   "3.2.0",
+            "junit"             :   "4.13.2",
+            "junitest"          :   "1.1.3",
+            "espressoCore"      :   "3.4.0",
+            "leakcanary"        :   "2.9.1",
+    ]
+
+    dependenciesSet = [
+            "jetpack" : [
+                    "appCompat"         :   "androidx.appcompat:appcompat:${versions.appCompat}",
+                    "ktx"               :   "androidx.core:core-ktx:${versions.coreKtx}",
+                    "material"          :   "com.google.android.material:material:${versions.material}",
+                    "constraintLayout"  :   "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+            ],
+            "koin"  :   [
+                    "android"           :   "io.insert-koin:koin-android:${versions.koin}",
+                    "androidCompat"     :   "io.insert-koin:koin-android-compat:${versions.koin}",
+                    "workmanager"       :   "io.insert-koin:koin-androidx-workmanager:${versions.koin}"
+            ],
+            "test"  : [
+                    "junit"             :   "junit:junit:${versions.junit}",
+                    "junitext"          :   "androidx.test.ext:junit:${versions.junitest}",
+                    "espressoCore"      :   "androidx.test.espresso:espresso-core:${versions.espressoCore}"
+            ],
+            "leakcanary"                :   "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}",
+    ]
+
+    jetpackDependency = [
+            dependenciesSet.jetpack.appCompat,
+            dependenciesSet.jetpack.ktx,
+            dependenciesSet.jetpack.material,
+            dependenciesSet.jetpack.constraintLayout
+    ]
+
+    koinDependency = [
+            dependenciesSet.koin.android,
+            dependenciesSet.koin.androidCompat,
+            dependenciesSet.koin.workmanager
+    ]
+
+    testDependency = [
+            dependenciesSet.test.junit
+    ]
+
+    androidTestDeps = [
+            dependenciesSet.test.junit,
+            dependenciesSet.test.junitext,
+            dependenciesSet.test.espressoCore
+    ]
+}
