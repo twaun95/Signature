@@ -14,4 +14,6 @@
     <color name="secondary">#FFBB86FC</color>
     <color name="secondary_variant">#FFBB86FC</color>
 
+    <color name="color_pen">#FF000000</color>
+
 </resources>

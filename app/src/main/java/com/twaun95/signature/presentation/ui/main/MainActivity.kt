@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.twaun95.signature.R
 import com.twaun95.signature.databinding.ActivityMainBinding
+import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,8 +18,13 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = this.viewModel
+
+        setEvent()
     }
 
-
-
+    private fun setEvent() {
+        binding.buttonEraser.setOnSingleClickListener {
+            binding.viewDrawing.redraw()
+        }
+    }
 }
