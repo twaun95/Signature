@@ -22,6 +22,7 @@ class DrawingView : View {
 
     private var penColor = ResourcesCompat.getColor(resources, R.color.color_pen, null)
     private var backgroundCanvasColor = ResourcesCompat.getColor(resources, R.color.white, null)
+    private var penStrokeWidth = 12f
 
     private var paint = Paint().apply {
         color = penColor
@@ -30,7 +31,7 @@ class DrawingView : View {
         style = Paint.Style.STROKE // default: FILL
         strokeJoin = Paint.Join.ROUND // default: MITER
         strokeCap = Paint.Cap.ROUND // default: BUTT
-        strokeWidth = 12f // default: Hairline-width (얇게 처리)
+        strokeWidth = penStrokeWidth // default: Hairline-width (얇게 처리)
     }
 
     private val touchTolerance = ViewConfiguration.get(context).scaledTouchSlop
@@ -77,7 +78,7 @@ class DrawingView : View {
     /**
      * 초기화 function. extraBitmap 초기화 & invalidate.
      */
-    fun redraw() {
+    fun reset() {
         if (::extraBitmap.isInitialized) extraBitmap.recycle()
         extraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         extraCanvas = Canvas(extraBitmap)
@@ -135,19 +136,23 @@ class DrawingView : View {
      * 펜 색 변경.
      */
     fun changePenColor(penColor : Int) {
-        this.penColor = ResourcesCompat.getColor(resources, penColor, null)
+//        this.penColor = ResourcesCompat.getColor(resources, penColor, null)
 
         paint = Paint().apply {
-            color = this@DrawingView.penColor
-
+            color = penColor
             isAntiAlias = true
-
             isDither = true
             style = Paint.Style.STROKE // default: FILL
             strokeJoin = Paint.Join.ROUND // default: MITER
             strokeCap = Paint.Cap.ROUND // default: BUTT
-            strokeWidth = 12f // default: Hairline-width (얇게 처리)
+            strokeWidth = penStrokeWidth // default: Hairline-width (얇게 처리)
         }
+    }
+
+    fun changeStrokeWidth(width: Float) {
+        penStrokeWidth += 4f
+        this.paint.strokeWidth = penStrokeWidth
+
     }
 
     fun changeBackgroundColor(backgroundCanvasColor : Int) {
@@ -155,10 +160,4 @@ class DrawingView : View {
         extraCanvas.drawColor(backgroundCanvasColor)
     }
 
-    /**
-     *
-     */
-//    fun setOnCanvasViewTouchStartListner(onCanvasViewTouchStartListener: OnCanvasViewTouchStartListener?) {
-//        this.onCanvasViewTouchStartListener = onCanvasViewTouchStartListener
-//    }
 }
