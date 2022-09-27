@@ -19,4 +19,13 @@
         <item name="android:background">@color/primary</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="my_dialog" parent="Theme.AppCompat.Dialog">
+
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+
+    </style>
 </resources>

@@ -9,22 +9,25 @@ import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
 import com.twaun95.signature.R
+import com.twaun95.signature.common.Logger
 
 class DrawingView : View {
     constructor(context: Context) : super(context)
     constructor (context: Context, attrs : AttributeSet?) : super(context, attrs)
     constructor (context: Context, attrs : AttributeSet?, defStyleAttr : Int) : super (context, attrs, defStyleAttr)
 
-    private var path = Path()
+//    private var path = Path()
+    private val path = mutableListOf<Path>()
+
     private lateinit var extraCanvas: Canvas
     private lateinit var extraBitmap: Bitmap
     private lateinit var frame: Rect
 
     private var penColor = ResourcesCompat.getColor(resources, R.color.color_pen, null)
-    private var backgroundCanvasColor = ResourcesCompat.getColor(resources, R.color.white, null)
+    private var backgroundCanvasColor = ResourcesCompat.getColor(resources, R.color.transparent, null)
     private var penStrokeWidth = 12f
 
-    private var paint = Paint().apply {
+    private var penPaint = Paint().apply {
         color = penColor
         isAntiAlias = true
         isDither = true
@@ -32,6 +35,10 @@ class DrawingView : View {
         strokeJoin = Paint.Join.ROUND // default: MITER
         strokeCap = Paint.Cap.ROUND // default: BUTT
         strokeWidth = penStrokeWidth // default: Hairline-width (얇게 처리)
+    }
+
+    private var backgroundPaint = Paint().apply {
+        color = Color.BLUE
     }
 
     private val touchTolerance = ViewConfiguration.get(context).scaledTouchSlop
@@ -48,13 +55,18 @@ class DrawingView : View {
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
         super.onSizeChanged(width, height, oldWidth, oldHeight)
 
+        Logger.d("onSizeChanged")
         if (::extraBitmap.isInitialized) extraBitmap.recycle()
+
         extraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         extraCanvas = Canvas(extraBitmap)
         extraCanvas.drawColor(backgroundCanvasColor)
     }
 
+
+
     override fun onDraw(canvas: Canvas) {
+        Logger.d("onDraw")
         // Draw the bitmap that has the saved path.
         canvas.drawBitmap(extraBitmap, 0f, 0f, null)
     }
@@ -79,16 +91,16 @@ class DrawingView : View {
      * 초기화 function. extraBitmap 초기화 & invalidate.
      */
     fun reset() {
+        Logger.d("reset")
+
         if (::extraBitmap.isInitialized) extraBitmap.recycle()
+        penPaint.color = Color.BLACK
         extraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         extraCanvas = Canvas(extraBitmap)
         extraCanvas.drawColor(backgroundCanvasColor)
 
-        // Calculate a rectangular frame around the picture.
-//        val inset = 40
-//        frame = Rect(inset, inset, width - inset, height - inset)
+        path.clear()
 
-        // 다시 그린다.
         invalidate()
     }
 
@@ -103,8 +115,10 @@ class DrawingView : View {
      */
     private fun touchStart() {
 
-        path.reset()
-        path.moveTo(motionTouchEventX, motionTouchEventY)
+        path.add(Path().apply {
+            moveTo(motionTouchEventX, motionTouchEventY)
+        })
+
         currentX = motionTouchEventX
         currentY = motionTouchEventY
     }
@@ -113,51 +127,43 @@ class DrawingView : View {
         val dx = Math.abs(motionTouchEventX - currentX)
         val dy = Math.abs(motionTouchEventY - currentY)
         if (dx >= touchTolerance || dy >= touchTolerance) {
-            // QuadTo() adds a quadratic bezier from the last point,
-            // approaching control point (x1,y1), and ending at (x2,y2).
-            path.quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
+            path.last().quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
             currentX = motionTouchEventX
             currentY = motionTouchEventY
             // Draw the path in the extra bitmap to save it.
-            extraCanvas.drawPath(path, paint)
+            path.forEach { extraCanvas.drawPath(it, penPaint) }
         }
-        // Invalidate() is inside the touchMove() under ACTION_MOVE because there are many other
-        // types of motion events passed into this listener, and we don't want to invalidate the
-        // view for those.
+
         invalidate()
     }
 
     private fun touchUp() {
-        // Reset the path so it doesn't get drawn again.
-        path.reset()
+        path.last().reset()
     }
 
     /**
      * 펜 색 변경.
      */
     fun changePenColor(penColor : Int) {
-//        this.penColor = ResourcesCompat.getColor(resources, penColor, null)
 
-        paint = Paint().apply {
-            color = penColor
+        Logger.d("changePenColor")
+        penPaint.color = penColor
+    }
+
+    fun changeStrokeWidth(width: Float) {
+        Logger.d("changeStrokeWidth")
+        penStrokeWidth += 4f
+        this.penPaint.strokeWidth = penStrokeWidth
+    }
+
+    fun erasingMode() {
+        penPaint = Paint().apply {
+            color = backgroundCanvasColor
             isAntiAlias = true
             isDither = true
             style = Paint.Style.STROKE // default: FILL
             strokeJoin = Paint.Join.ROUND // default: MITER
-            strokeCap = Paint.Cap.ROUND // default: BUTT
-            strokeWidth = penStrokeWidth // default: Hairline-width (얇게 처리)
+            strokeWidth = 40f
         }
     }
-
-    fun changeStrokeWidth(width: Float) {
-        penStrokeWidth += 4f
-        this.paint.strokeWidth = penStrokeWidth
-
-    }
-
-    fun changeBackgroundColor(backgroundCanvasColor : Int) {
-        this.backgroundCanvasColor = backgroundCanvasColor
-        extraCanvas.drawColor(backgroundCanvasColor)
-    }
-
 }

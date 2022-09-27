@@ -11,14 +11,20 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.ui.main.MainActivity">
 
+        <com.twaun95.signature.presentation.view.BackgroundView
+            android:id="@+id/view_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
         <com.twaun95.signature.presentation.view.DrawingView
             android:id="@+id/view_drawing"
-            android:layout_height="0dp"
             android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

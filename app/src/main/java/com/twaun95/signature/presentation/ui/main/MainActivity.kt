@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private fun setEvent() {
         binding.button4.setOnSingleClickListener {
             binding.viewDrawing.reset()
+            binding.viewBackground.reset()
         }
         binding.button6.setOnSingleClickListener {
             binding.viewDrawing.changeStrokeWidth(20f)
@@ -34,7 +35,10 @@ class MainActivity : AppCompatActivity() {
             ColorPickerDialog.show(this) { color -> binding.viewDrawing.changePenColor(color) }
         }
         binding.button8.setOnSingleClickListener {
-            binding.viewDrawing.changeBackgroundColor(R.color.purple_200)
+            ColorPickerDialog.show(this) { color ->  binding.viewBackground.changeColor(color) }
+        }
+        binding.button5.setOnSingleClickListener {
+            binding.viewDrawing.erasingMode()
         }
     }
 }
