@@ -90,6 +90,8 @@ class DrawingView : View {
         Logger.d("reset")
 
         if (::drawingBitmap.isInitialized) drawingBitmap.recycle()
+
+        backgroundCanvasColor = Color.WHITE
         penPaint.color = Color.BLACK
         drawingBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         drawingCanvas = Canvas(drawingBitmap)

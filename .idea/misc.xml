@@ -7,7 +7,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21329639889196675" />
         <entry key="app/src/main/res/layout/fragment_dialog_common.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_dialog_eraser.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_dialog_pen_width.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_dialog_pen_width.xml" value="0.25" />
         <entry key="app/src/main/res/layout/view_flag.xml" value="0.19791666666666666" />
       </map>
     </option>

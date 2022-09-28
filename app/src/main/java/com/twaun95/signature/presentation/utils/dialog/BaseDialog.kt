@@ -43,5 +43,4 @@ abstract class BaseDialog<VB: ViewDataBinding>(@LayoutRes private val layoutId: 
 
     open fun initView() {}
     open fun setEvent() {}
-
 }

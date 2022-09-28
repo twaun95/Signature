@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.twaun95.signature.R
+import com.twaun95.signature.common.Logger
 import com.twaun95.signature.databinding.ActivityMainBinding
 import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
 import com.twaun95.signature.presentation.model.DialogBody
@@ -32,12 +33,9 @@ class MainActivity : AppCompatActivity() {
             binding.viewDrawing.reset()
         }
         binding.button6.setOnSingleClickListener {
-            PenWidthDialog(
-                BaseDialog.ButtonType.TWO,
-                DialogBody(getString(R.string.dialog_title_background_color), getString(R.string.dialog_message_background_color)),
-                {},
-                {binding.viewDrawing.changeStrokeWidth(20f) }
-            ).show(supportFragmentManager, null)
+            WidthPickerDialog.show(supportFragmentManager, 3f) {
+                Logger.d(it)
+            }
         }
         binding.button7.setOnSingleClickListener {
             ColorPickerDialog.show(this) { color -> binding.viewDrawing.changePenColor(color) }
