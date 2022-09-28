@@ -1,4 +1,4 @@
-package com.twaun95.signature.presentation.utils
+package com.twaun95.signature.presentation.utils.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,17 +1,17 @@
-package com.twaun95.signature.presentation.utils
+package com.twaun95.signature.presentation.utils.dialog
 
 import com.twaun95.signature.R
-import com.twaun95.signature.databinding.FragmentDialogPenWidthBinding
+import com.twaun95.signature.databinding.FragmentDialogEraserBinding
 import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
 import com.twaun95.signature.presentation.extensions.visible
 import com.twaun95.signature.presentation.model.DialogBody
 
-class PenWidthDialog(
+class EraserDialog(
     private val buttonType: ButtonType,
     private val content: DialogBody,
     private var onCancelListener : (()->Unit)? = null,
     private var onConfirmListener : (()->Unit)? = null
-) : BaseDialog<FragmentDialogPenWidthBinding>(R.layout.fragment_dialog_pen_width){
+) : BaseDialog<FragmentDialogEraserBinding>(R.layout.fragment_dialog_eraser){
     override fun initView() {
         super.initView()
 

@@ -1,17 +1,17 @@
-package com.twaun95.signature.presentation.utils
+package com.twaun95.signature.presentation.utils.dialog
 
 import com.twaun95.signature.R
-import com.twaun95.signature.databinding.FragmentDialogCommonBinding
+import com.twaun95.signature.databinding.FragmentDialogPenWidthBinding
 import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
 import com.twaun95.signature.presentation.extensions.visible
 import com.twaun95.signature.presentation.model.DialogBody
 
-class CommonDialog(
+class PenWidthDialog(
     private val buttonType: ButtonType,
     private val content: DialogBody,
     private var onCancelListener : (()->Unit)? = null,
     private var onConfirmListener : (()->Unit)? = null
-) : BaseDialog<FragmentDialogCommonBinding>(R.layout.fragment_dialog_common){
+) : BaseDialog<FragmentDialogPenWidthBinding>(R.layout.fragment_dialog_pen_width){
     override fun initView() {
         super.initView()
 

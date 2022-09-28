@@ -1,4 +1,4 @@
-package com.twaun95.signature.presentation.utils
+package com.twaun95.signature.presentation.utils.dialog
 
 import android.content.Context
 import com.skydoves.colorpickerview.ColorPickerDialog

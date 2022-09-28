@@ -18,6 +18,8 @@ class DrawingView : View {
     constructor (context: Context, attrs : AttributeSet?, defStyleAttr : Int) : super (context, attrs, defStyleAttr)
 
     private val drawingPaths = mutableListOf<Path>()
+    private val erasingPaths = mutableListOf<Path>()
+
     private lateinit var drawingCanvas: Canvas
     private lateinit var drawingBitmap: Bitmap
 
@@ -62,6 +64,7 @@ class DrawingView : View {
         Logger.d("onDraw")
         // Draw the bitmap that has the saved path.
         canvas.drawBitmap(drawingBitmap, 0f, 0f, null)
+        drawingPaths.forEach { drawingCanvas.drawPath(it, penPaint) }
     }
 
     /**
@@ -93,6 +96,8 @@ class DrawingView : View {
         drawingCanvas.drawColor(backgroundCanvasColor)
         drawingPaths.clear()
 
+        erasingPaths.clear()
+
         invalidate()
     }
 
@@ -123,7 +128,7 @@ class DrawingView : View {
             currentX = motionTouchEventX
             currentY = motionTouchEventY
 
-            drawingPaths.forEach { drawingCanvas.drawPath(it, penPaint) }
+//            drawingPaths.forEach { drawingCanvas.drawPath(it, penPaint) }
         }
 
         invalidate()
@@ -162,12 +167,18 @@ class DrawingView : View {
     }
 
     fun goBack() {
-        drawingPaths.last().reset()
+
+
         drawingPaths.removeLast()
+        drawingPaths.forEach { drawingCanvas.drawPath(it, penPaint) }
         invalidate()
     }
 
     fun goFront() {
 
+    }
+
+    fun getBitmap() : Bitmap{
+        return drawingBitmap
     }
 }
