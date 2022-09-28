@@ -59,4 +59,6 @@ class BackgroundView : View {
     fun reset() {
         changeColor(ResourcesCompat.getColor(resources, R.color.white, null))
     }
+
+    fun getColor() = backgroundCanvasColor
 }

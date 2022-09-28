@@ -17,6 +17,7 @@
         tools:context=".presentation.ui.main.MainActivity">
 
         <com.twaun95.signature.presentation.view.BackgroundView
+            android:visibility="gone"
             android:id="@+id/view_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

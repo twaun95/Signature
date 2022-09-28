@@ -10,21 +10,19 @@ import android.view.ViewConfiguration
 import androidx.core.content.res.ResourcesCompat
 import com.twaun95.signature.R
 import com.twaun95.signature.common.Logger
+import kotlin.math.abs
 
 class DrawingView : View {
     constructor(context: Context) : super(context)
     constructor (context: Context, attrs : AttributeSet?) : super(context, attrs)
     constructor (context: Context, attrs : AttributeSet?, defStyleAttr : Int) : super (context, attrs, defStyleAttr)
 
-//    private var path = Path()
-    private val path = mutableListOf<Path>()
-
-    private lateinit var extraCanvas: Canvas
-    private lateinit var extraBitmap: Bitmap
-    private lateinit var frame: Rect
+    private val drawingPaths = mutableListOf<Path>()
+    private lateinit var drawingCanvas: Canvas
+    private lateinit var drawingBitmap: Bitmap
 
     private var penColor = ResourcesCompat.getColor(resources, R.color.color_pen, null)
-    private var backgroundCanvasColor = ResourcesCompat.getColor(resources, R.color.transparent, null)
+    private var backgroundCanvasColor = ResourcesCompat.getColor(resources, R.color.white, null)
     private var penStrokeWidth = 12f
 
     private var penPaint = Paint().apply {
@@ -37,15 +35,10 @@ class DrawingView : View {
         strokeWidth = penStrokeWidth // default: Hairline-width (얇게 처리)
     }
 
-    private var backgroundPaint = Paint().apply {
-        color = Color.BLUE
-    }
-
     private val touchTolerance = ViewConfiguration.get(context).scaledTouchSlop
 
     private var currentX = 0f
     private var currentY = 0f
-
     private var motionTouchEventX = 0f
     private var motionTouchEventY = 0f
 
@@ -56,11 +49,11 @@ class DrawingView : View {
         super.onSizeChanged(width, height, oldWidth, oldHeight)
 
         Logger.d("onSizeChanged")
-        if (::extraBitmap.isInitialized) extraBitmap.recycle()
+        if (::drawingBitmap.isInitialized) drawingBitmap.recycle()
 
-        extraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        extraCanvas = Canvas(extraBitmap)
-        extraCanvas.drawColor(backgroundCanvasColor)
+        drawingBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        drawingCanvas = Canvas(drawingBitmap)
+        drawingCanvas.drawColor(backgroundCanvasColor)
     }
 
 
@@ -68,7 +61,7 @@ class DrawingView : View {
     override fun onDraw(canvas: Canvas) {
         Logger.d("onDraw")
         // Draw the bitmap that has the saved path.
-        canvas.drawBitmap(extraBitmap, 0f, 0f, null)
+        canvas.drawBitmap(drawingBitmap, 0f, 0f, null)
     }
 
     /**
@@ -93,13 +86,12 @@ class DrawingView : View {
     fun reset() {
         Logger.d("reset")
 
-        if (::extraBitmap.isInitialized) extraBitmap.recycle()
+        if (::drawingBitmap.isInitialized) drawingBitmap.recycle()
         penPaint.color = Color.BLACK
-        extraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        extraCanvas = Canvas(extraBitmap)
-        extraCanvas.drawColor(backgroundCanvasColor)
-
-        path.clear()
+        drawingBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        drawingCanvas = Canvas(drawingBitmap)
+        drawingCanvas.drawColor(backgroundCanvasColor)
+        drawingPaths.clear()
 
         invalidate()
     }
@@ -115,7 +107,7 @@ class DrawingView : View {
      */
     private fun touchStart() {
 
-        path.add(Path().apply {
+        drawingPaths.add(Path().apply {
             moveTo(motionTouchEventX, motionTouchEventY)
         })
 
@@ -124,28 +116,30 @@ class DrawingView : View {
     }
 
     private fun touchMove() {
-        val dx = Math.abs(motionTouchEventX - currentX)
-        val dy = Math.abs(motionTouchEventY - currentY)
+        val dx = abs(motionTouchEventX - currentX)
+        val dy = abs(motionTouchEventY - currentY)
         if (dx >= touchTolerance || dy >= touchTolerance) {
-            path.last().quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
+            drawingPaths.last().quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
             currentX = motionTouchEventX
             currentY = motionTouchEventY
-            // Draw the path in the extra bitmap to save it.
-            path.forEach { extraCanvas.drawPath(it, penPaint) }
+
+            drawingPaths.forEach { drawingCanvas.drawPath(it, penPaint) }
         }
 
         invalidate()
     }
 
     private fun touchUp() {
-        path.last().reset()
+        drawingPaths.last().reset()
     }
 
-    /**
-     * 펜 색 변경.
-     */
-    fun changePenColor(penColor : Int) {
+    fun changeBackgroundColor(color: Int) {
+        backgroundCanvasColor = color
+        drawingCanvas.drawColor(backgroundCanvasColor)
+        invalidate()
+    }
 
+    fun changePenColor(penColor : Int) {
         Logger.d("changePenColor")
         penPaint.color = penColor
     }
@@ -161,9 +155,19 @@ class DrawingView : View {
             color = backgroundCanvasColor
             isAntiAlias = true
             isDither = true
-            style = Paint.Style.STROKE // default: FILL
-            strokeJoin = Paint.Join.ROUND // default: MITER
+            style = Paint.Style.STROKE
+            strokeJoin = Paint.Join.ROUND
             strokeWidth = 40f
         }
+    }
+
+    fun goBack() {
+        drawingPaths.last().reset()
+        drawingPaths.removeLast()
+        invalidate()
+    }
+
+    fun goFront() {
+
     }
 }

@@ -6,7 +6,8 @@ import androidx.databinding.DataBindingUtil
 import com.twaun95.signature.R
 import com.twaun95.signature.databinding.ActivityMainBinding
 import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
-import com.twaun95.signature.presentation.utils.ColorPickerDialog
+import com.twaun95.signature.presentation.model.DialogBody
+import com.twaun95.signature.presentation.utils.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -26,19 +27,36 @@ class MainActivity : AppCompatActivity() {
     private fun setEvent() {
         binding.button4.setOnSingleClickListener {
             binding.viewDrawing.reset()
-            binding.viewBackground.reset()
         }
         binding.button6.setOnSingleClickListener {
-            binding.viewDrawing.changeStrokeWidth(20f)
+            PenWidthDialog(
+                BaseDialog.ButtonType.TWO,
+                DialogBody(getString(R.string.dialog_title_background_color), getString(R.string.dialog_message_background_color)),
+                {},
+                {binding.viewDrawing.changeStrokeWidth(20f) }
+            ).show(supportFragmentManager, null)
         }
         binding.button7.setOnSingleClickListener {
             ColorPickerDialog.show(this) { color -> binding.viewDrawing.changePenColor(color) }
         }
         binding.button8.setOnSingleClickListener {
-            ColorPickerDialog.show(this) { color ->  binding.viewBackground.changeColor(color) }
+            CommonDialog(
+                BaseDialog.ButtonType.TWO,
+                DialogBody(getString(R.string.dialog_title_background_color), getString(R.string.dialog_message_background_color)),
+                {},
+                { ColorPickerDialog.show(this) { color ->  binding.viewDrawing.changeBackgroundColor(color) } }
+            ).show(supportFragmentManager, null)
         }
         binding.button5.setOnSingleClickListener {
-            binding.viewDrawing.erasingMode()
+            EraserDialog(
+                BaseDialog.ButtonType.TWO,
+                DialogBody(getString(R.string.dialog_title_background_color), getString(R.string.dialog_message_background_color)),
+                {},
+                { binding.viewDrawing.erasingMode() }
+            ).show(supportFragmentManager, null)
+        }
+        binding.button3.setOnSingleClickListener {
+            binding.viewDrawing.goBack()
         }
     }
 }
