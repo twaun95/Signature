@@ -17,14 +17,7 @@ class DrawingView : View {
     constructor (context: Context, attrs : AttributeSet?) : super(context, attrs)
     constructor (context: Context, attrs : AttributeSet?, defStyleAttr : Int) : super (context, attrs, defStyleAttr)
 
-    companion object {
-        const val DEFAULT_PEN_WIDTH = 12f
-        const val DEFAULT_ERASER_WIDTH = 14f
-        const val DEFAULT_PEN_COLOR = Color.BLACK
-        const val DEFAULT_BACKGROUND_COLOR = Color.WHITE
-    }
     private val drawingPaths = mutableListOf<Path>()
-
     private lateinit var drawingCanvas: Canvas
     private lateinit var drawingBitmap: Bitmap
 
@@ -37,22 +30,18 @@ class DrawingView : View {
         color = penColor
         isAntiAlias = true
         isDither = true
-        style = Paint.Style.STROKE // default: FILL
-        strokeJoin = Paint.Join.ROUND // default: MITER
-        strokeCap = Paint.Cap.ROUND // default: BUTT
-        strokeWidth = penStrokeWidth // default: Hairline-width (얇게 처리)
+        style = Paint.Style.STROKE
+        strokeJoin = Paint.Join.ROUND
+        strokeCap = Paint.Cap.ROUND
+        strokeWidth = penStrokeWidth
     }
 
     private val touchTolerance = ViewConfiguration.get(context).scaledTouchSlop
-
     private var currentX = 0f
     private var currentY = 0f
     private var motionTouchEventX = 0f
     private var motionTouchEventY = 0f
 
-    /**
-     * Size가 0이 아닐때, 호출되는 메소드. extraCanvas 를 그린다.
-     */
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
         super.onSizeChanged(width, height, oldWidth, oldHeight)
 
@@ -64,8 +53,6 @@ class DrawingView : View {
         drawingCanvas.drawColor(backgroundCanvasColor)
     }
 
-
-
     override fun onDraw(canvas: Canvas) {
         Logger.d("onDraw")
         // Draw the bitmap that has the saved path.
@@ -73,9 +60,6 @@ class DrawingView : View {
         drawingPaths.forEach { drawingCanvas.drawPath(it, penPaint) }
     }
 
-    /**
-     * touch 에 따른 event 처리.
-     */
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         motionTouchEventX = event.x
@@ -89,15 +73,12 @@ class DrawingView : View {
         return true
     }
 
-    /**
-     * 초기화 function. extraBitmap 초기화 & invalidate.
-     */
     fun reset() {
-        Logger.d("reset")
-
         if (::drawingBitmap.isInitialized) drawingBitmap.recycle()
 
         backgroundCanvasColor = DEFAULT_BACKGROUND_COLOR
+        penColor = DEFAULT_PEN_COLOR
+
         penPaint.apply {
             color = DEFAULT_PEN_COLOR
             strokeWidth = DEFAULT_PEN_WIDTH
@@ -111,15 +92,6 @@ class DrawingView : View {
         invalidate()
     }
 
-
-
-    /**
-     * The following methods factor out what happens for different touch events,
-     * as determined by the onTouchEvent() when statement.
-     * This keeps the when conditional block
-     * concise and makes it easier to change what happens for each event.
-     * No need to call invalidate because we are not drawing anything.
-     */
     private fun touchStart() {
 
         drawingPaths.add(Path().apply {
@@ -153,19 +125,16 @@ class DrawingView : View {
     }
 
     fun changePenColor(penColor : Int) {
-        Logger.d("changePenColor")
         this.penColor = penColor
         penPaint.color = this.penColor
     }
 
     fun changeStrokeWidth(width: Float) {
-        Logger.d("changeStrokeWidth")
         penStrokeWidth = width
         this.penPaint.strokeWidth = penStrokeWidth
     }
 
     fun changeEraserStrokeWidth(width: Float) {
-        Logger.d("changeStrokeWidth")
         eraserWidth = width
         this.penPaint.strokeWidth = eraserWidth
     }
@@ -182,26 +151,20 @@ class DrawingView : View {
     }
 
     fun goBack() {
-
-
-        drawingPaths.removeLast()
-        drawingPaths.forEach { drawingCanvas.drawPath(it, penPaint) }
-        invalidate()
+//        drawingPaths.removeLast()
+//        drawingPaths.forEach { drawingCanvas.drawPath(it, penPaint) }
+//        invalidate()
     }
 
-    fun goFront() {
 
-    }
+    fun getBitmap() = drawingBitmap
+    fun getPenWidth() = penPaint.strokeWidth
+    fun getPenColor() = penColor
 
-    fun getBitmap() : Bitmap{
-        return drawingBitmap
-    }
-
-    fun getPenWidth() : Float {
-        return penPaint.strokeWidth
-    }
-
-    fun getPenColor() : Int {
-        return penColor
+    companion object {
+        const val DEFAULT_PEN_WIDTH = 12f
+        const val DEFAULT_ERASER_WIDTH = 14f
+        const val DEFAULT_PEN_COLOR = Color.BLACK
+        const val DEFAULT_BACKGROUND_COLOR = Color.WHITE
     }
 }

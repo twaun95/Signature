@@ -15,7 +15,7 @@ class PenPreView : View {
         color = Color.BLACK
     }
 
-    private var rect = RectF(0f,0f,0f,0f)
+    private lateinit var rect : RectF
     private var viewHeight = 0
     private var viewWidth = 0
     private var penWidth = 0
@@ -26,12 +26,6 @@ class PenPreView : View {
         viewHeight = h
         viewWidth = w
 
-//        rect = Rect().apply {
-//            left = w/2 - penWidth/2
-//            right = w/2 + penWidth/2
-//            top = 0
-//            bottom = h
-//        }
         rect = RectF().apply {
             left = (w/2 - penWidth/2).toFloat()
             right = (w/2 + penWidth/2).toFloat()
@@ -43,7 +37,6 @@ class PenPreView : View {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawRoundRect(rect, max(rect.width(), rect.height()), max(rect.width(), rect.height()), paint)
-//        canvas.drawLine(rect.left.toFloat(), rect.top.toFloat(), rect.right.toFloat(), rect.bottom.toFloat(), paint)
     }
 
     fun onWidthChanged(width: Int) {
