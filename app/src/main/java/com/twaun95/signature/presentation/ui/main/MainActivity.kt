@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding.button6.setOnSingleClickListener {
             WidthPickerDialog.show(supportFragmentManager, 3f) {
                 Logger.d(it)
+                binding.viewDrawing.changeStrokeWidth(it)
             }
         }
         binding.button7.setOnSingleClickListener {

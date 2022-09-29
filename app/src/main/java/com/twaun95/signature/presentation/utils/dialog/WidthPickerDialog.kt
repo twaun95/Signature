@@ -1,5 +1,7 @@
 package com.twaun95.signature.presentation.utils.dialog
 
+import android.view.View
+import android.widget.SeekBar
 import androidx.fragment.app.FragmentManager
 import com.twaun95.signature.R
 import com.twaun95.signature.databinding.FragmentDialogPenWidthBinding
@@ -10,6 +12,8 @@ class WidthPickerDialog(
     private var listener: WidthPickerListener
 ) : BaseDialog<FragmentDialogPenWidthBinding>(R.layout.fragment_dialog_pen_width){
 
+
+    private var penWidth = 0f
     fun interface WidthPickerListener {
         fun setWidth(width: Float)
     }
@@ -23,11 +27,28 @@ class WidthPickerDialog(
     override fun setEvent() {
         super.setEvent()
 
+        binding.seekBar.apply {
+            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                    binding.tvWidth.text = progress.toString()
+                    binding.preViewPen.onWidthChanged(progress)
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar) {
+                    penWidth =  seekBar.progress.toFloat()
+                }
+            })
+        }
+
+
         binding.btnCancel.setOnSingleClickListener {
             dismiss()
         }
         binding.btnComplete.setOnSingleClickListener {
-            listener.setWidth(10f)
+            listener.setWidth(penWidth)
             dismiss()
         }
     }

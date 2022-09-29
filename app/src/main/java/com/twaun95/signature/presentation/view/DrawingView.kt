@@ -153,7 +153,7 @@ class DrawingView : View {
 
     fun changeStrokeWidth(width: Float) {
         Logger.d("changeStrokeWidth")
-        penStrokeWidth += 4f
+        penStrokeWidth = width
         this.penPaint.strokeWidth = penStrokeWidth
     }
 

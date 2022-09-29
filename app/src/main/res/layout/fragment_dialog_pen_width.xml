@@ -109,17 +109,57 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/gl_top">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:padding="20dp"
+                        app:layout_constraintWidth_percent="0.3"
+                        app:layout_constraintDimensionRatio="1"
+                        android:background="@drawable/ring"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.twaun95.signature.presentation.view.PenPreView
+                            android:id="@+id/preView_pen"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <TextView
                         android:id="@+id/tv_message"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="MESSAGE"
                         android:textColor="@color/black"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_width"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toTopOf="@id/seekBar"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/seekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:max="100"
+                        android:min="2"
+                        android:progress="10"
+                        app:layout_constraintBottom_toBottomOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
