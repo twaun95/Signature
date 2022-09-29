@@ -1,5 +1,6 @@
 package com.twaun95.signature.presentation.utils.dialog
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.SeekBar
 import androidx.fragment.app.FragmentManager
@@ -9,6 +10,7 @@ import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
 
 class WidthPickerDialog(
     private val currentWidth: Float,
+    private val currentColor: Int,
     private var listener: WidthPickerListener
 ) : BaseDialog<FragmentDialogPenWidthBinding>(R.layout.fragment_dialog_pen_width){
 
@@ -21,7 +23,9 @@ class WidthPickerDialog(
     override fun initView() {
         super.initView()
 
-        binding.tvMessage.text = currentWidth.toString()
+        binding.seekBar.progress = currentWidth.toInt()
+        binding.preViewPen.initialize(currentWidth, currentColor)
+        binding.tvWidth.text = currentWidth.toInt().toString()
     }
 
     override fun setEvent() {
@@ -60,9 +64,10 @@ class WidthPickerDialog(
         fun show(
             fragmentManager: FragmentManager,
             currentWidth: Float,
+            currentColor: Int,
             listener: WidthPickerListener
         ) {
-            return WidthPickerDialog(currentWidth, listener)
+            return WidthPickerDialog(currentWidth, currentColor, listener)
                 .show(fragmentManager, TAG)
         }
     }

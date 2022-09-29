@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             binding.viewDrawing.reset()
         }
         binding.button6.setOnSingleClickListener {
-            WidthPickerDialog.show(supportFragmentManager, 3f) {
+            WidthPickerDialog.show(supportFragmentManager, binding.viewDrawing.getPenWidth(), binding.viewDrawing.getPenColor()) {
                 Logger.d(it)
                 binding.viewDrawing.changeStrokeWidth(it)
             }
@@ -50,12 +50,18 @@ class MainActivity : AppCompatActivity() {
             ).show(supportFragmentManager, null)
         }
         binding.button5.setOnSingleClickListener {
-            EraserDialog(
-                BaseDialog.ButtonType.TWO,
-                DialogBody(getString(R.string.dialog_title_background_color), getString(R.string.dialog_message_background_color)),
-                {},
-                { binding.viewDrawing.erasingMode() }
-            ).show(supportFragmentManager, null)
+            viewModel.toggleEraser()
+            if (viewModel.isErasingMode.value!!) {
+                EraserDialog(
+                    BaseDialog.ButtonType.TWO,
+                    DialogBody(getString(R.string.dialog_title_background_color), getString(R.string.dialog_message_background_color)),
+                    {},
+                    { binding.viewDrawing.erasingMode(true) }
+                ).show(supportFragmentManager, null)
+            } else {
+                binding.viewDrawing.erasingMode(false)
+            }
+
         }
         binding.button3.setOnSingleClickListener {
             binding.viewDrawing.goBack()

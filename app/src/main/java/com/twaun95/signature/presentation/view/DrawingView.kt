@@ -17,15 +17,21 @@ class DrawingView : View {
     constructor (context: Context, attrs : AttributeSet?) : super(context, attrs)
     constructor (context: Context, attrs : AttributeSet?, defStyleAttr : Int) : super (context, attrs, defStyleAttr)
 
+    companion object {
+        const val DEFAULT_PEN_WIDTH = 12f
+        const val DEFAULT_ERASER_WIDTH = 14f
+        const val DEFAULT_PEN_COLOR = Color.BLACK
+        const val DEFAULT_BACKGROUND_COLOR = Color.WHITE
+    }
     private val drawingPaths = mutableListOf<Path>()
-    private val erasingPaths = mutableListOf<Path>()
 
     private lateinit var drawingCanvas: Canvas
     private lateinit var drawingBitmap: Bitmap
 
-    private var penColor = ResourcesCompat.getColor(resources, R.color.color_pen, null)
-    private var backgroundCanvasColor = ResourcesCompat.getColor(resources, R.color.white, null)
-    private var penStrokeWidth = 12f
+    private var penColor = DEFAULT_PEN_COLOR
+    private var backgroundCanvasColor = DEFAULT_BACKGROUND_COLOR
+    private var penStrokeWidth = DEFAULT_PEN_WIDTH
+    private var eraserWidth = DEFAULT_ERASER_WIDTH
 
     private var penPaint = Paint().apply {
         color = penColor
@@ -91,14 +97,16 @@ class DrawingView : View {
 
         if (::drawingBitmap.isInitialized) drawingBitmap.recycle()
 
-        backgroundCanvasColor = Color.WHITE
-        penPaint.color = Color.BLACK
+        backgroundCanvasColor = DEFAULT_BACKGROUND_COLOR
+        penPaint.apply {
+            color = DEFAULT_PEN_COLOR
+            strokeWidth = DEFAULT_PEN_WIDTH
+        }
+
         drawingBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         drawingCanvas = Canvas(drawingBitmap)
         drawingCanvas.drawColor(backgroundCanvasColor)
         drawingPaths.clear()
-
-        erasingPaths.clear()
 
         invalidate()
     }
@@ -129,8 +137,6 @@ class DrawingView : View {
             drawingPaths.last().quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
             currentX = motionTouchEventX
             currentY = motionTouchEventY
-
-//            drawingPaths.forEach { drawingCanvas.drawPath(it, penPaint) }
         }
 
         invalidate()
@@ -148,7 +154,8 @@ class DrawingView : View {
 
     fun changePenColor(penColor : Int) {
         Logger.d("changePenColor")
-        penPaint.color = penColor
+        this.penColor = penColor
+        penPaint.color = this.penColor
     }
 
     fun changeStrokeWidth(width: Float) {
@@ -157,14 +164,20 @@ class DrawingView : View {
         this.penPaint.strokeWidth = penStrokeWidth
     }
 
-    fun erasingMode() {
+    fun changeEraserStrokeWidth(width: Float) {
+        Logger.d("changeStrokeWidth")
+        eraserWidth = width
+        this.penPaint.strokeWidth = eraserWidth
+    }
+
+    fun erasingMode(isEraser: Boolean) {
         penPaint = Paint().apply {
-            color = backgroundCanvasColor
+            color = if (isEraser) backgroundCanvasColor else penColor
             isAntiAlias = true
             isDither = true
             style = Paint.Style.STROKE
             strokeJoin = Paint.Join.ROUND
-            strokeWidth = 40f
+            strokeWidth = if (isEraser) eraserWidth else penStrokeWidth
         }
     }
 
@@ -182,5 +195,13 @@ class DrawingView : View {
 
     fun getBitmap() : Bitmap{
         return drawingBitmap
+    }
+
+    fun getPenWidth() : Float {
+        return penPaint.strokeWidth
+    }
+
+    fun getPenColor() : Int {
+        return penColor
     }
 }

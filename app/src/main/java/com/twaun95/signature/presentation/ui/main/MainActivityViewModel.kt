@@ -5,5 +5,9 @@ import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel : ViewModel() {
 
-    val hello by lazy { MutableLiveData("hello") }
+    val isErasingMode by lazy { MutableLiveData(false) }
+
+    fun toggleEraser() {
+        isErasingMode.value = isErasingMode.value == false
+    }
 }
