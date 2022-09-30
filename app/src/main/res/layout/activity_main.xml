@@ -8,6 +8,8 @@
         <variable
             name="viewModel"
             type="com.twaun95.signature.presentation.ui.main.MainActivityViewModel" />
+
+        <import type="com.twaun95.signature.presentation.utils.drawable.DrawableStateHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +31,8 @@
             android:id="@+id/layout_controller"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/purple_500"
+            android:background="@drawable/background_controller"
+            android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintBottom_toTopOf="@id/guideline_controller"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,31 +44,33 @@
                 android:id="@+id/button_update_background"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="배경"
+                android:background="@{DrawableStateHandler.INSTANCE.getPressedDrawable(@drawable/update_background_default, @drawable/update_background_pressed)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toStartOf="@+id/button_update_pen_color"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@drawable/update_background_default" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_update_pen_color"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="펜 색"
+                android:background="@{DrawableStateHandler.INSTANCE.getPressedDrawable(@drawable/update_pen_color_default, @drawable/update_pen_color_checked)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintDimensionRatio="W, 1"
                 app:layout_constraintEnd_toStartOf="@+id/button_update_width"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/button_update_background"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@drawable/update_pen_color_default" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_update_width"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="펜 굵기"
+                android:background="@drawable/update_pen_width"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toStartOf="@+id/button_eraser"
@@ -77,19 +82,20 @@
                 android:id="@+id/button_eraser"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="지우개"
+                android:background="@{DrawableStateHandler.INSTANCE.getPressedDrawable(@drawable/eraser_off, @drawable/eraser_on)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toStartOf="@+id/button_reset"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/button_update_width"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@drawable/eraser_off" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_reset"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="초기화"
+                android:background="@drawable/reset"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toStartOf="@id/button_setting"
@@ -100,7 +106,7 @@
                 android:id="@+id/button_setting"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="저장"
+                android:background="@drawable/download"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -113,6 +119,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.08" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

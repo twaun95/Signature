@@ -30,5 +30,7 @@
     <color name="toast_border">#FFBB86FC</color>
     <color name="toast_text">#FFBB86FC</color>
 
+    <color name="white_opacity50">#80FFFFFF</color>
+    <color name="white_opacity20">#26000000</color>
 
 </resources>
