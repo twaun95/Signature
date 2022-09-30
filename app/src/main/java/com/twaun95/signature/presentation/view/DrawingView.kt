@@ -1,14 +1,11 @@
 package com.twaun95.signature.presentation.view
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
-import androidx.core.content.res.ResourcesCompat
-import com.twaun95.signature.R
 import com.twaun95.signature.common.Logger
 import kotlin.math.abs
 
@@ -45,7 +42,6 @@ class DrawingView : View {
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
         super.onSizeChanged(width, height, oldWidth, oldHeight)
 
-        Logger.d("onSizeChanged")
         if (::drawingBitmap.isInitialized) drawingBitmap.recycle()
 
         drawingBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -54,23 +50,46 @@ class DrawingView : View {
     }
 
     override fun onDraw(canvas: Canvas) {
-        Logger.d("onDraw")
-        // Draw the bitmap that has the saved path.
         canvas.drawBitmap(drawingBitmap, 0f, 0f, null)
         drawingPaths.forEach { drawingCanvas.drawPath(it, penPaint) }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         motionTouchEventX = event.x
         motionTouchEventY = event.y
 
         when (event.action) {
-            MotionEvent.ACTION_DOWN -> touchStart()
-            MotionEvent.ACTION_MOVE -> touchMove()
-            MotionEvent.ACTION_UP -> touchUp()
+            MotionEvent.ACTION_DOWN -> onStartDrawing()
+            MotionEvent.ACTION_MOVE -> onDrawing()
+            MotionEvent.ACTION_UP -> onStopDrawing()
         }
         return true
+    }
+
+    private fun onStartDrawing() {
+
+        drawingPaths.add(Path().apply {
+            moveTo(motionTouchEventX, motionTouchEventY)
+        })
+
+        currentX = motionTouchEventX
+        currentY = motionTouchEventY
+    }
+
+    private fun onDrawing() {
+        val dx = abs(motionTouchEventX - currentX)
+        val dy = abs(motionTouchEventY - currentY)
+        if (dx >= touchTolerance || dy >= touchTolerance) {
+            drawingPaths.last().quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
+            currentX = motionTouchEventX
+            currentY = motionTouchEventY
+        }
+
+        invalidate()
+    }
+
+    private fun onStopDrawing() {
+        drawingPaths.last().reset()
     }
 
     fun reset() {
@@ -92,60 +111,36 @@ class DrawingView : View {
         invalidate()
     }
 
-    private fun touchStart() {
-
-        drawingPaths.add(Path().apply {
-            moveTo(motionTouchEventX, motionTouchEventY)
-        })
-
-        currentX = motionTouchEventX
-        currentY = motionTouchEventY
-    }
-
-    private fun touchMove() {
-        val dx = abs(motionTouchEventX - currentX)
-        val dy = abs(motionTouchEventY - currentY)
-        if (dx >= touchTolerance || dy >= touchTolerance) {
-            drawingPaths.last().quadTo(currentX, currentY, (motionTouchEventX + currentX) / 2, (motionTouchEventY + currentY) / 2)
-            currentX = motionTouchEventX
-            currentY = motionTouchEventY
-        }
-
-        invalidate()
-    }
-
-    private fun touchUp() {
-        drawingPaths.last().reset()
-    }
-
-    fun changeBackgroundColor(color: Int) {
+    fun updateBackgroundColor(color: Int) {
         backgroundCanvasColor = color
         drawingCanvas.drawColor(backgroundCanvasColor)
         invalidate()
     }
 
-    fun changePenColor(penColor : Int) {
+    fun updatePenColor(penColor : Int) {
         this.penColor = penColor
         penPaint.color = this.penColor
+        penPaint.strokeWidth = penStrokeWidth
     }
 
-    fun changeStrokeWidth(width: Float) {
+    fun updateStrokeWidth(width: Float) {
         penStrokeWidth = width
         this.penPaint.strokeWidth = penStrokeWidth
     }
 
-    fun changeEraserStrokeWidth(width: Float) {
-        eraserWidth = width
-        this.penPaint.strokeWidth = eraserWidth
-    }
+    fun onErasingMode(isEraser: Boolean, width: Float) {
+        if (isEraser) {
+            eraserWidth = width
+            this.penPaint.strokeWidth = eraserWidth
+        }
 
-    fun erasingMode(isEraser: Boolean) {
         penPaint = Paint().apply {
             color = if (isEraser) backgroundCanvasColor else penColor
             isAntiAlias = true
             isDither = true
             style = Paint.Style.STROKE
             strokeJoin = Paint.Join.ROUND
+            strokeCap = Paint.Cap.ROUND
             strokeWidth = if (isEraser) eraserWidth else penStrokeWidth
         }
     }
@@ -158,7 +153,8 @@ class DrawingView : View {
 
 
     fun getBitmap() = drawingBitmap
-    fun getPenWidth() = penPaint.strokeWidth
+    fun getPenWidth() = penStrokeWidth
+    fun getEraserWidth() = eraserWidth
     fun getPenColor() = penColor
 
     companion object {

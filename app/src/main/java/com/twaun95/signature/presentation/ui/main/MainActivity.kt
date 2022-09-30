@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.twaun95.signature.R
-import com.twaun95.signature.common.Logger
 import com.twaun95.signature.databinding.ActivityMainBinding
 import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
 import com.twaun95.signature.presentation.model.DialogBody
@@ -29,52 +28,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setEvent() {
-        binding.button4.setOnSingleClickListener {
-            binding.viewDrawing.reset()
-        }
-        binding.button6.setOnSingleClickListener {
-            WidthPickerDialog.show(supportFragmentManager, binding.viewDrawing.getPenWidth(), binding.viewDrawing.getPenColor()) {
-                Logger.d(it)
-                binding.viewDrawing.changeStrokeWidth(it)
-            }
-        }
-        binding.button7.setOnSingleClickListener {
-            ColorPickerDialog.show(this) { color -> binding.viewDrawing.changePenColor(color) }
-        }
-        binding.button8.setOnSingleClickListener {
-            CommonDialog(
+        binding.buttonUpdateBackground.setOnSingleClickListener {
+            CommonDialog.show(
+                supportFragmentManager,
                 BaseDialog.ButtonType.TWO,
                 DialogBody(getString(R.string.dialog_title_background_color), getString(R.string.dialog_message_background_color)),
                 {},
-                { ColorPickerDialog.show(this) { color ->  binding.viewDrawing.changeBackgroundColor(color) } }
-            ).show(supportFragmentManager, null)
+                { ColorPickerDialog.show(this) { color ->  binding.viewDrawing.updateBackgroundColor(color) } }
+            )
         }
-        binding.button5.setOnSingleClickListener {
+
+        binding.buttonUpdatePenColor.setOnSingleClickListener {
+            ColorPickerDialog.show(this) { color -> binding.viewDrawing.updatePenColor(color) }
+        }
+
+        binding.buttonUpdateWidth.setOnSingleClickListener {
+            WidthPickerDialog.show(supportFragmentManager, binding.viewDrawing.getPenWidth(), binding.viewDrawing.getPenColor()) { binding.viewDrawing.updateStrokeWidth(it) }
+        }
+
+        binding.buttonEraser.setOnSingleClickListener {
             viewModel.toggleEraser()
             if (viewModel.isErasingMode.value!!) {
-                EraserDialog(
-                    BaseDialog.ButtonType.TWO,
-                    DialogBody(getString(R.string.dialog_title_background_color), getString(R.string.dialog_message_background_color)),
-                    {},
-                    { binding.viewDrawing.erasingMode(true) }
-                ).show(supportFragmentManager, null)
+                EraserDialog.show(supportFragmentManager, binding.viewDrawing.getPenWidth()) { binding.viewDrawing.onErasingMode(true, it) }
             } else {
-                binding.viewDrawing.erasingMode(false)
+                binding.viewDrawing.onErasingMode(false, binding.viewDrawing.getEraserWidth())
             }
-
         }
-        binding.button3.setOnSingleClickListener {
-            binding.viewDrawing.goBack()
+
+        binding.buttonReset.setOnSingleClickListener {
+            binding.viewDrawing.reset()
         }
 
         binding.buttonSetting.setOnSingleClickListener {
             //권한 체크
-            if(!ImageSaveHandler.checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) ||
-                !ImageSaveHandler.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if(!ImageSaveHandler.checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 return@setOnSingleClickListener
             }
+
             //그림 저장
-            if(!ImageSaveHandler.imageExternalSave(this, binding.viewDrawing.getBitmap(), getString(R.string.app_name))){
+            if(!ImageSaveHandler.imageExternalSave(this, binding.viewDrawing.getBitmap())){
                 Toast.makeText(this, "그림 저장을 실패하였습니다", Toast.LENGTH_SHORT).show()
                 return@setOnSingleClickListener
             }

@@ -24,7 +24,7 @@
 
     <color name="transparent">#00000000</color>
 
-    <color name="dialog_background"></color>
+    <color name="dialog_opacity_background">#80000000</color>
 
 
 </resources>

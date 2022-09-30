@@ -1,7 +1,5 @@
 package com.twaun95.signature.presentation.utils.dialog
 
-import android.content.res.ColorStateList
-import android.view.View
 import android.widget.SeekBar
 import androidx.fragment.app.FragmentManager
 import com.twaun95.signature.R
@@ -15,7 +13,8 @@ class WidthPickerDialog(
 ) : BaseDialog<FragmentDialogPenWidthBinding>(R.layout.fragment_dialog_pen_width){
 
 
-    private var penWidth = 0f
+    private var penWidth = currentWidth
+
     fun interface WidthPickerListener {
         fun setWidth(width: Float)
     }
@@ -25,7 +24,7 @@ class WidthPickerDialog(
 
         binding.seekBar.progress = currentWidth.toInt()
         binding.preViewPen.initialize(currentWidth, currentColor)
-        binding.tvWidth.text = currentWidth.toInt().toString()
+        binding.tvWidth.text = getString(R.string.dialog_pen_width, currentWidth.toInt())
     }
 
     override fun setEvent() {
@@ -34,7 +33,7 @@ class WidthPickerDialog(
         binding.seekBar.apply {
             setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    binding.tvWidth.text = progress.toString()
+                    binding.tvWidth.text = getString(R.string.dialog_pen_width, progress)
                     binding.preViewPen.onWidthChanged(progress)
                 }
 

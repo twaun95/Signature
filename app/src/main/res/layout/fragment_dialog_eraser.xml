@@ -10,24 +10,67 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dialog_background">
+        android:background="@color/dialog_opacity_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_main_left"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_main_right"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".9" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_main_top"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".3" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_main_bottom"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".7" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_main"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/dialog_background"
                 android:clipToOutline="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="H, 5:4"
+                app:layout_constraintBottom_toTopOf="@id/guideline_main_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/guideline_main_top"
                 app:layout_constraintWidth_percent="0.8">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.8" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_top"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.18" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_top"
@@ -47,7 +90,7 @@
                         android:autoSizeTextType="uniform"
                         android:fontFamily="@font/semi_bold"
                         android:gravity="center"
-                        android:text="TITLE"
+                        android:text="@string/dialog_title_pen_width"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHeight_percent="0.7"
@@ -55,13 +98,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_top"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.2" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_middle"
@@ -73,31 +109,54 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/gl_top">
 
-                    <TextView
-                        android:id="@+id/tv_message"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="MESSAGE"
-                        android:textColor="@color/black"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/eraser_preview"
+                        android:padding="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.3">
+
+                        <com.twaun95.signature.presentation.view.EraserPreView
+                            android:id="@+id/preView_eraser"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/tv_width"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toTopOf="@id/seekBar"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/seekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:max="100"
+                        android:min="2"
+                        android:progress="10"
+                        android:progressBackgroundTint="@color/black"
+                        android:progressTint="@color/primary"
+                        android:thumbTint="@color/primary"
+                        app:layout_constraintBottom_toBottomOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_bottom"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.75" />
-
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layout_bottom_type_two"
+                    android:id="@+id/layout_buttons"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -106,28 +165,28 @@
                     tools:visibility="visible">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_cancel_type_two"
+                        android:id="@+id/btn_cancel"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginRight="1dp"
-                        android:background="@color/mono3"
+                        android:background="@drawable/button_dialog"
                         android:fontFamily="@font/medium"
                         android:text="취소"
                         android:textColor="@color/black"
                         android:textSize="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_complete_type_two"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_complete"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_complete_type_two"
+                        android:id="@+id/btn_complete"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginLeft="1dp"
-                        android:background="@color/mono3"
+                        android:background="@drawable/button_dialog"
                         android:fontFamily="@font/medium"
                         android:text="확인"
                         android:textColor="@color/black"
@@ -135,34 +194,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btn_cancel_type_two"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layout_bottom_type_one"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/gl_bottom">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_complete_type_one"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:background="@color/mono4"
-                        android:fontFamily="@font/medium"
-                        android:text="확인"
-                        android:textColor="@color/black"
-                        android:textSize="20dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/btn_cancel"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

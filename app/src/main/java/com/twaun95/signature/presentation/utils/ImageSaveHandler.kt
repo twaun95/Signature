@@ -14,14 +14,16 @@ import java.io.File
 import java.io.FileOutputStream
 
 object ImageSaveHandler {
-    fun imageExternalSave(context: Context, bitmap: Bitmap, path: String): Boolean {
+
+    private const val GALLERY_PATH = "낙서장"
+
+    fun imageExternalSave(context: Context, bitmap: Bitmap): Boolean {
         val state = Environment.getExternalStorageState()
         if (Environment.MEDIA_MOUNTED == state) {
 
             val rootPath =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                    .toString()
-            val dirName = "/" + path
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()
+            val dirName = "/$GALLERY_PATH"
             val fileName = System.currentTimeMillis().toString() + ".png"
             val savePath = File(rootPath + dirName)
             savePath.mkdirs()
@@ -48,6 +50,7 @@ object ImageSaveHandler {
                 e.printStackTrace()
             }
         }
+
         return false
     }
 

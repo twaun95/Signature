@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dialog_background">
+        android:background="@color/dialog_opacity_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_root"
@@ -91,6 +91,7 @@
                         android:fontFamily="@font/semi_bold"
                         android:gravity="center"
                         android:text="@string/dialog_title_pen_width"
+                        android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHeight_percent="0.7"
@@ -112,21 +113,20 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/pen_preview"
                         android:padding="10dp"
-                        app:layout_constraintWidth_percent="0.3"
                         app:layout_constraintDimensionRatio="1"
-                        android:background="@drawable/ring"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.3">
 
                         <com.twaun95.signature.presentation.view.PenPreView
                             android:id="@+id/preView_pen"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            />
+                            android:layout_height="match_parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -134,23 +134,25 @@
                         android:id="@+id/tv_width"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:layout_marginBottom="5dp"
                         android:textColor="@color/black"
                         app:layout_constraintBottom_toTopOf="@id/seekBar"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:text="굵기" />
 
                     <androidx.appcompat.widget.AppCompatSeekBar
                         android:id="@+id/seekBar"
                         android:layout_width="match_parent"
+                        android:layout_marginBottom="10dp"
                         android:layout_height="20dp"
-                        android:thumbTint="@color/primary"
-                        android:progressTint="@color/primary"
-                        android:progressBackgroundTint="@color/black"
                         android:max="100"
                         android:min="2"
                         android:progress="10"
+                        android:progressBackgroundTint="@color/black"
+                        android:progressTint="@color/primary"
+                        android:thumbTint="@color/primary"
                         app:layout_constraintBottom_toBottomOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -170,7 +172,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginRight="1dp"
-                        android:background="@color/mono3"
+                        android:background="@drawable/button_dialog"
                         android:fontFamily="@font/medium"
                         android:text="취소"
                         android:textColor="@color/black"
@@ -187,7 +189,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginLeft="1dp"
-                        android:background="@color/mono3"
+                        android:background="@drawable/button_dialog"
                         android:fontFamily="@font/medium"
                         android:text="확인"
                         android:textColor="@color/black"

@@ -16,12 +16,6 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.main.MainActivity">
 
-        <com.twaun95.signature.presentation.view.BackgroundView
-            android:visibility="gone"
-            android:id="@+id/view_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
         <com.twaun95.signature.presentation.view.DrawingView
             android:id="@+id/view_drawing"
             android:layout_width="0dp"
@@ -44,99 +38,73 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button8"
+                android:id="@+id/button_update_background"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:text="배경"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
-                app:layout_constraintEnd_toStartOf="@+id/button7"
+                app:layout_constraintEnd_toStartOf="@+id/button_update_pen_color"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button7"
+                android:id="@+id/button_update_pen_color"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:text="펜 색"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
-                app:layout_constraintEnd_toStartOf="@+id/button6"
+                app:layout_constraintEnd_toStartOf="@+id/button_update_width"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button8"
+                app:layout_constraintStart_toEndOf="@+id/button_update_background"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button6"
+                android:id="@+id/button_update_width"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:text="펜 굵기"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
-                app:layout_constraintEnd_toStartOf="@+id/button5"
+                app:layout_constraintEnd_toStartOf="@+id/button_eraser"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button7"
+                app:layout_constraintStart_toEndOf="@+id/button_update_pen_color"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button5"
+                android:id="@+id/button_eraser"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:text="지우개"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
-                app:layout_constraintEnd_toStartOf="@+id/button4"
+                app:layout_constraintEnd_toStartOf="@+id/button_reset"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button6"
+                app:layout_constraintStart_toEndOf="@+id/button_update_width"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button4"
+                android:id="@+id/button_reset"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:text="초기화"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
-                app:layout_constraintEnd_toStartOf="@+id/button3"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button5"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="뒤로"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintEnd_toStartOf="@+id/button2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button4"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="앞으로"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintEnd_toStartOf="@+id/button_setting"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button3"
+                app:layout_constraintEnd_toStartOf="@id/button_setting"
+                app:layout_constraintStart_toEndOf="@+id/button_eraser"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_setting"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="설정"
+                android:text="저장"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button2"
+                app:layout_constraintStart_toEndOf="@id/button_reset"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

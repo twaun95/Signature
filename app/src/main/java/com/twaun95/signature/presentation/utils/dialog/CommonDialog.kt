@@ -1,5 +1,6 @@
 package com.twaun95.signature.presentation.utils.dialog
 
+import androidx.fragment.app.FragmentManager
 import com.twaun95.signature.R
 import com.twaun95.signature.databinding.FragmentDialogCommonBinding
 import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
@@ -47,4 +48,19 @@ class CommonDialog(
         }
     }
 
+    companion object {
+
+        private const val TAG = "CommonDialog"
+
+        fun show(
+            fragmentManager: FragmentManager,
+            buttonType: ButtonType,
+            content: DialogBody,
+            onCancelListener : (()->Unit)? = null,
+            onConfirmListener : (()->Unit)? = null
+        ) {
+            return CommonDialog(buttonType, content, onCancelListener, onConfirmListener)
+                .show(fragmentManager, TAG)
+        }
+    }
 }
