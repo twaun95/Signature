@@ -26,5 +26,9 @@
 
     <color name="dialog_opacity_background">#80000000</color>
 
+    <color name="toast_background">#FFFFFFFF</color>
+    <color name="toast_border">#FFBB86FC</color>
+    <color name="toast_text">#FFBB86FC</color>
+
 
 </resources>

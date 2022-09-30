@@ -2,7 +2,6 @@ package com.twaun95.signature.presentation.ui.main
 
 import android.Manifest
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.twaun95.signature.R
@@ -66,10 +65,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             //그림 저장
-            if(!ImageSaveHandler.imageExternalSave(this, binding.viewDrawing.getBitmap())){
-                Toast.makeText(this, "그림 저장을 실패하였습니다", Toast.LENGTH_SHORT).show()
-                return@setOnSingleClickListener
-            }
+            ImageSaveHandler.saveImageGallery(this, binding.viewDrawing.getBitmap())
         }
     }
 }

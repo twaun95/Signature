@@ -10,14 +10,17 @@ import android.os.Environment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.twaun95.signature.presentation.utils.toast.Toast
 import java.io.File
 import java.io.FileOutputStream
 
 object ImageSaveHandler {
 
     private const val GALLERY_PATH = "낙서장"
+    private const val MESSAGE_SUCCESS = "저장을 완료했습니다."
+    private const val MESSAGE_FAIL = "저장을 실패했습니다."
 
-    fun imageExternalSave(context: Context, bitmap: Bitmap): Boolean {
+    fun saveImageGallery(context: Context, bitmap: Bitmap) {
         val state = Environment.getExternalStorageState()
         if (Environment.MEDIA_MOUNTED == state) {
 
@@ -44,22 +47,21 @@ object ImageSaveHandler {
                         Uri.parse("file://" + Environment.getExternalStorageDirectory())
                     )
                 )
-
-                return true
+                Toast.show(context, MESSAGE_SUCCESS)
+                return
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
 
-        return false
+        Toast.show(context, MESSAGE_FAIL)
     }
 
     fun checkPermission(activity: AppCompatActivity, permission: String): Boolean {
-        val permissionChecker =
-            ContextCompat.checkSelfPermission(activity.applicationContext, permission)
+        val permissionChecker = ContextCompat.checkSelfPermission(activity.applicationContext, permission)
 
-        //권한이 없으면 권한 요청
         if (permissionChecker == PackageManager.PERMISSION_GRANTED) return true
+
         ActivityCompat.requestPermissions(activity, arrayOf(permission), DownloadManager.Request.NETWORK_MOBILE)
         return false
     }

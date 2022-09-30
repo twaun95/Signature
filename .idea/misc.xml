@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/fragment_dialog_eraser.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_dialog_pen_width.xml" value="0.25" />
         <entry key="app/src/main/res/layout/view_flag.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/view_toast.xml" value="0.28125" />
       </map>
     </option>
   </component>
