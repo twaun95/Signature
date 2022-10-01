@@ -10,6 +10,8 @@
             type="com.twaun95.signature.presentation.ui.main.MainActivityViewModel" />
 
         <import type="com.twaun95.signature.presentation.utils.drawable.DrawableStateHandler" />
+
+        <import type="com.twaun95.signature.presentation.model.ToggledState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,11 +42,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/button_update_background"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@{DrawableStateHandler.INSTANCE.getPressedDrawable(@drawable/update_background_default, @drawable/update_background_pressed)}"
+                android:background="@{DrawableStateHandler.INSTANCE.getCheckDrawable(@drawable/update_background_default, @drawable/update_background_pressed)}"
+                android:checked="@{viewModel.toggledState==ToggledState.BACKGROUND_COLOR}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toStartOf="@+id/button_update_pen_color"
@@ -53,11 +56,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:background="@drawable/update_background_default" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/button_update_pen_color"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@{DrawableStateHandler.INSTANCE.getPressedDrawable(@drawable/update_pen_color_default, @drawable/update_pen_color_checked)}"
+                android:background="@{DrawableStateHandler.INSTANCE.getCheckDrawable(@drawable/update_pen_color_default, @drawable/update_pen_color_checked)}"
+                android:checked="@{viewModel.toggledState==ToggledState.PEN_COLOR}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="W, 1"
                 app:layout_constraintEnd_toStartOf="@+id/button_update_width"
@@ -78,11 +82,12 @@
                 app:layout_constraintStart_toEndOf="@+id/button_update_pen_color"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/button_eraser"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@{DrawableStateHandler.INSTANCE.getPressedDrawable(@drawable/eraser_off, @drawable/eraser_on)}"
+                android:background="@{DrawableStateHandler.INSTANCE.getCheckDrawable(@drawable/eraser_off, @drawable/eraser_on)}"
+                android:checked="@{viewModel.toggledState==ToggledState.ERASER}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toStartOf="@+id/button_reset"

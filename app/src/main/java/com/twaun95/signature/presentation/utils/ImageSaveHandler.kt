@@ -10,7 +10,7 @@ import android.os.Environment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.twaun95.signature.presentation.utils.toast.Toast
+import com.twaun95.signature.presentation.utils.toast.CustomToast
 import java.io.File
 import java.io.FileOutputStream
 
@@ -47,14 +47,14 @@ object ImageSaveHandler {
                         Uri.parse("file://" + Environment.getExternalStorageDirectory())
                     )
                 )
-                Toast.show(context, MESSAGE_SUCCESS)
+                CustomToast.show(context, MESSAGE_SUCCESS)
                 return
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
 
-        Toast.show(context, MESSAGE_FAIL)
+        CustomToast.show(context, MESSAGE_FAIL)
     }
 
     fun checkPermission(activity: AppCompatActivity, permission: String): Boolean {

@@ -9,9 +9,9 @@ import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
 class WidthPickerDialog(
     private val currentWidth: Float,
     private val currentColor: Int,
+    private var onDismissListener: (()->Unit)? = null,
     private var listener: WidthPickerListener
 ) : BaseDialog<FragmentDialogPenWidthBinding>(R.layout.fragment_dialog_pen_width){
-
 
     private var penWidth = currentWidth
 
@@ -29,6 +29,19 @@ class WidthPickerDialog(
 
     override fun setEvent() {
         super.setEvent()
+        binding.layoutRoot.setOnSingleClickListener {
+            onDismissListener?.invoke()
+            dismiss()
+        }
+        binding.btnCancel.setOnSingleClickListener {
+            onDismissListener?.invoke()
+            dismiss()
+        }
+        binding.btnComplete.setOnSingleClickListener {
+            onDismissListener?.invoke()
+            listener.setWidth(penWidth)
+            dismiss()
+        }
 
         binding.seekBar.apply {
             setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
@@ -37,36 +50,25 @@ class WidthPickerDialog(
                     binding.preViewPen.onWidthChanged(progress)
                 }
 
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                }
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
                 override fun onStopTrackingTouch(seekBar: SeekBar) {
                     penWidth =  seekBar.progress.toFloat()
                 }
             })
         }
-
-
-        binding.btnCancel.setOnSingleClickListener {
-            dismiss()
-        }
-        binding.btnComplete.setOnSingleClickListener {
-            listener.setWidth(penWidth)
-            dismiss()
-        }
     }
 
     companion object {
-
         private const val TAG = "WidthPickerDialog"
-
         fun show(
             fragmentManager: FragmentManager,
             currentWidth: Float,
             currentColor: Int,
+            onDismissListener: (()->Unit)? = null,
             listener: WidthPickerListener
         ) {
-            return WidthPickerDialog(currentWidth, currentColor, listener)
+            return WidthPickerDialog(currentWidth, currentColor, onDismissListener, listener)
                 .show(fragmentManager, TAG)
         }
     }

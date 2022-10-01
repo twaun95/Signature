@@ -2,14 +2,17 @@ package com.twaun95.signature.presentation.ui.main
 
 import android.Manifest
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.twaun95.signature.R
+import com.twaun95.signature.common.Logger
 import com.twaun95.signature.databinding.ActivityMainBinding
 import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
-import com.twaun95.signature.presentation.model.DialogBody
+import com.twaun95.signature.presentation.model.ToggledState
 import com.twaun95.signature.presentation.utils.ImageSaveHandler
 import com.twaun95.signature.presentation.utils.dialog.*
+import com.twaun95.signature.presentation.utils.toast.CustomToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -28,33 +31,49 @@ class MainActivity : AppCompatActivity() {
 
     private fun setEvent() {
         binding.buttonUpdateBackground.setOnSingleClickListener {
-            CommonDialog.show(
-                supportFragmentManager,
-                BaseDialog.ButtonType.TWO,
-                DialogBody(getString(R.string.dialog_title_background_color), getString(R.string.dialog_message_background_color)),
-                {},
-                { ColorPickerDialog.show(this) { color ->  binding.viewDrawing.updateBackgroundColor(color) } }
+            viewModel.toggle(ToggledState.BACKGROUND_COLOR)
+            CustomToast.show(this, getString(R.string.dialog_message_background_color), Toast.LENGTH_LONG)
+            ColorPickerDialog.show(this,
+                getString(R.string.dialog_title_background_color),
+                { viewModel.toggle(ToggledState.IDLE) },
+                { color ->  binding.viewDrawing.updateBackgroundColor(color) }
             )
         }
 
         binding.buttonUpdatePenColor.setOnSingleClickListener {
-            ColorPickerDialog.show(this) { color -> binding.viewDrawing.updatePenColor(color) }
+            viewModel.toggle(ToggledState.PEN_COLOR)
+            ColorPickerDialog.show(this,
+                getString(R.string.dialog_title_pen_color),
+                { viewModel.toggle(ToggledState.IDLE) },
+                { color -> binding.viewDrawing.updatePenColor(color) }
+            )
         }
 
         binding.buttonUpdateWidth.setOnSingleClickListener {
-            WidthPickerDialog.show(supportFragmentManager, binding.viewDrawing.getPenWidth(), binding.viewDrawing.getPenColor()) { binding.viewDrawing.updateStrokeWidth(it) }
+            WidthPickerDialog.show(supportFragmentManager,
+                binding.viewDrawing.getPenWidth(),
+                binding.viewDrawing.getPenColor(),
+                {},
+                { binding.viewDrawing.updateStrokeWidth(it) }
+            )
         }
 
         binding.buttonEraser.setOnSingleClickListener {
-            viewModel.toggleEraser()
-            if (viewModel.isErasingMode.value!!) {
-                EraserDialog.show(supportFragmentManager, binding.viewDrawing.getPenWidth()) { binding.viewDrawing.onErasingMode(true, it) }
+            if (viewModel.toggledState.value != ToggledState.ERASER) {
+                viewModel.toggle(ToggledState.ERASER)
+                EraserDialog.show(supportFragmentManager,
+                    binding.viewDrawing.getPenWidth(),
+                    { },
+                    { binding.viewDrawing.onErasingMode(true, it) }
+                )
             } else {
+                viewModel.toggle(ToggledState.IDLE)
                 binding.viewDrawing.onErasingMode(false, binding.viewDrawing.getEraserWidth())
             }
         }
 
         binding.buttonReset.setOnSingleClickListener {
+            viewModel.toggle(ToggledState.IDLE)
             binding.viewDrawing.reset()
         }
 

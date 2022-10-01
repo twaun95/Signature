@@ -165,23 +165,6 @@
                     tools:visibility="visible">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_cancel"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginRight="1dp"
-                        android:background="@drawable/button_dialog"
-                        android:fontFamily="@font/medium"
-                        android:text="취소"
-                        android:textColor="@color/black"
-                        android:textSize="20dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_complete"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_complete"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -194,7 +177,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btn_cancel"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

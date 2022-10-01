@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/drawable/pen_preview.xml" value="0.259" />
         <entry key="app/src/main/res/drawable/ring.xml" value="0.169" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_dialog_color_picker.xml" value="0.19427083333333334" />
         <entry key="app/src/main/res/layout/fragment_dialog_common.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_dialog_eraser.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_dialog_pen_width.xml" value="0.25" />

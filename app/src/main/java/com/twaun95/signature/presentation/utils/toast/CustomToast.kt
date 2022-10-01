@@ -9,7 +9,7 @@ import com.twaun95.signature.R
 import com.twaun95.signature.databinding.ViewToastBinding
 import com.twaun95.signature.presentation.extensions.toPx
 
-object Toast {
+object CustomToast {
 
     fun show(context: Context, message: String, toastDuration : Int = Toast.LENGTH_SHORT) {
         val binding: ViewToastBinding =

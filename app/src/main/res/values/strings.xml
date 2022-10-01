@@ -3,9 +3,10 @@
     <string name="confirm">선택완료</string>
     <string name="cancel">취소</string>
 
-    <string name="dialog_title_background_color">주의</string>
-    <string name="dialog_message_background_color">배경화면 색 변경시 그림이 초기화됩니다.\n 변경하시겠습니까?</string>
 
+    <string name="dialog_title_background_color">배경 색상</string>
+    <string name="dialog_message_background_color">배경화면 색 변경시 그림이 초기화됩니다.</string>
+    <string name="dialog_title_pen_color">펜 색상</string>
     <string name="dialog_title_pen_width">펜 굵기 조절</string>
     <string name="dialog_title_eraser_width">지우개 굵기 조절</string>
 

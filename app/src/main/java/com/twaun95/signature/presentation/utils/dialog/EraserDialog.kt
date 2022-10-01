@@ -9,6 +9,7 @@ import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
 
 class EraserDialog(
     private val currentWidth: Float,
+    private var onDismissListener: (()->Unit)? = null,
     private var listener: WidthPickerListener
 ) : BaseDialog<FragmentDialogEraserBinding>(R.layout.fragment_dialog_eraser){
 
@@ -45,11 +46,8 @@ class EraserDialog(
             })
         }
 
-
-        binding.btnCancel.setOnSingleClickListener {
-            dismiss()
-        }
         binding.btnComplete.setOnSingleClickListener {
+            onDismissListener?.invoke()
             listener.setWidth(penWidth)
             dismiss()
         }
@@ -62,9 +60,10 @@ class EraserDialog(
         fun show(
             fragmentManager: FragmentManager,
             currentWidth: Float,
+            onDismissListener: (()->Unit)? = null,
             listener: WidthPickerListener
         ) {
-            return EraserDialog(currentWidth, listener)
+            return EraserDialog(currentWidth, onDismissListener, listener)
                 .show(fragmentManager, TAG)
         }
     }
