@@ -15,7 +15,7 @@ class EraserPreView : View {
     constructor (context: Context, attrs : AttributeSet?, defStyleAttr : Int) : super (context, attrs, defStyleAttr)
 
     private var paint = Paint().apply {
-        color = Color.WHITE
+        color = Color.GRAY
     }
 
     private lateinit var rect : RectF
