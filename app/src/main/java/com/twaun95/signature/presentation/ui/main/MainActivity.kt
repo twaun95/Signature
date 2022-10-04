@@ -6,11 +6,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.twaun95.signature.R
-import com.twaun95.signature.common.Logger
 import com.twaun95.signature.databinding.ActivityMainBinding
 import com.twaun95.signature.presentation.extensions.setOnSingleClickListener
 import com.twaun95.signature.presentation.model.ToggledState
-import com.twaun95.signature.presentation.utils.ImageSaveHandler
+import com.twaun95.signature.presentation.handler.ImageSaveHandler
 import com.twaun95.signature.presentation.utils.dialog.*
 import com.twaun95.signature.presentation.utils.toast.CustomToast
 import org.koin.androidx.viewmodel.ext.android.viewModel

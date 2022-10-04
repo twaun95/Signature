@@ -145,13 +145,6 @@ class DrawingView : View {
         }
     }
 
-    fun goBack() {
-//        drawingPaths.removeLast()
-//        drawingPaths.forEach { drawingCanvas.drawPath(it, penPaint) }
-//        invalidate()
-    }
-
-
     fun getBitmap() = drawingBitmap
     fun getPenWidth() = penStrokeWidth
     fun getEraserWidth() = eraserWidth

@@ -9,6 +9,7 @@ ext {
             "junitest"          :   "1.1.3",
             "espressoCore"      :   "3.4.0",
             "leakcanary"        :   "2.9.1",
+            "colorPicker"       :   "2.2.4"
     ]
 
     dependenciesSet = [
@@ -29,6 +30,7 @@ ext {
                     "espressoCore"      :   "androidx.test.espresso:espresso-core:${versions.espressoCore}"
             ],
             "leakcanary"                :   "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}",
+            "colorpicker"               :   "com.github.skydoves:colorpickerview:${versions.colorPicker}",
     ]
 
     jetpackDependency = [

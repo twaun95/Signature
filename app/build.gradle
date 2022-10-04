@@ -37,10 +37,14 @@ android {
 dependencies {
     implementation(jetpackDependency)
     implementation(koinDependency)
+
+    // test
     testImplementation(testDependency)
     androidTestImplementation(androidTestDeps)
 
+    // debug
     debugImplementation dependenciesSet.leakcanary
 
-    implementation "com.github.skydoves:colorpickerview:2.2.4"
+    // third-party
+    implementation dependenciesSet.colorpicker
 }
