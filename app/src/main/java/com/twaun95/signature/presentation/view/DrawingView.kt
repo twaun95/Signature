@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
-import com.twaun95.signature.common.Logger
 import kotlin.math.abs
 
 class DrawingView : View {

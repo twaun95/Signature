@@ -18,8 +18,22 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+//            signingConfig signingConfigs.release
+            minifyEnabled true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        inhouse {
+//            initWith release
+//            applicationIdSuffix ".inhouse"
+            minifyEnabled true
+            debuggable true
+        }
+        debug {
+//            applicationIdSuffix ".debug"
+//            signingConfig signingConfigs.debug
+            minifyEnabled false
+            debuggable true
         }
     }
     compileOptions {
@@ -46,5 +60,6 @@ dependencies {
     debugImplementation dependenciesSet.leakcanary
 
     // third-party
+    implementation dependenciesSet.timber
     implementation dependenciesSet.colorpicker
 }

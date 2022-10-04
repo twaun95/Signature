@@ -9,7 +9,8 @@ ext {
             "junitest"          :   "1.1.3",
             "espressoCore"      :   "3.4.0",
             "leakcanary"        :   "2.9.1",
-            "colorPicker"       :   "2.2.4"
+            "colorPicker"       :   "2.2.4",
+            "timber"            :   "5.0.1"
     ]
 
     dependenciesSet = [
@@ -31,6 +32,7 @@ ext {
             ],
             "leakcanary"                :   "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}",
             "colorpicker"               :   "com.github.skydoves:colorpickerview:${versions.colorPicker}",
+            "timber"                    :   "com.jakewharton.timber:timber:${versions.timber}"
     ]
 
     jetpackDependency = [
