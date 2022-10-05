@@ -13,6 +13,7 @@ import com.twaun95.signature.presentation.handler.ImageSaveHandler
 import com.twaun95.signature.presentation.utils.dialog.*
 import com.twaun95.signature.presentation.utils.toast.CustomToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class MainActivity : AppCompatActivity() {
@@ -81,7 +82,6 @@ class MainActivity : AppCompatActivity() {
             if(!ImageSaveHandler.checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 return@setOnSingleClickListener
             }
-
             //그림 저장
             ImageSaveHandler.saveImageGallery(this, binding.viewDrawing.getBitmap())
         }
