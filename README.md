@@ -22,9 +22,9 @@
               &boxvr;&boxh;&boxh; drawable
               &boxur;&boxh;&boxh; toast
         &boxur;&boxh;&boxh; view (Custom)
-              &boxvr;&boxh;&boxh; DrawingView 
-              &boxvr;&boxh;&boxh; EraserPreView
-              &boxur;&boxh;&boxh; PenPreView
+              &boxvr;&boxh;&boxh; DrawingView (화면에 그려지는 뷰)
+              &boxvr;&boxh;&boxh; EraserPreView (지우개 두께 조절 미리보기)
+              &boxur;&boxh;&boxh; PenPreView (펜 두께 조절 미리보기
         &boxur;&boxh;&boxh; ui
               &boxur;&boxh;&boxh; main (Activity, ViewModel)
   
@@ -32,4 +32,21 @@
 
 
 # Skills
+- Kotlin
+- Koin
+- ViewModel
+- Jetpack
+- DataBinding
+- LiveData
+- CustomView
+
+# Environment
+- Android Studio Chipmunk 2021.2.1
+- minSdkVersion 26
+- targetSdkVersion 32
+- Test Device - Galaxy S10e
+
+
+
+
 
