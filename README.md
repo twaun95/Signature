@@ -10,9 +10,9 @@
 <pre>
 .app/
   &boxvr;&boxh;&boxh; common
-  &boxur;&boxh;&boxh; di
-  &boxv;    &boxvr;&boxh;&boxh; HandlerModule
-  &boxv;    &boxur;&boxh;&boxh; ViewModelModule
+  &boxur;&boxh;&boxh; di (koin)
+        &boxvr;&boxh;&boxh; HandlerModule
+        &boxur;&boxh;&boxh; ViewModelModule
   &boxur;&boxh;&boxh; presentation
         &boxvr;&boxh;&boxh; extensions
         &boxvr;&boxh;&boxh; model
