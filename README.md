@@ -11,22 +11,22 @@
 .app/
   &boxvr;&boxh;&boxh; common
   &boxur;&boxh;&boxh; di (koin)
-        &boxvr;&boxh;&boxh; HandlerModule
-        &boxur;&boxh;&boxh; ViewModelModule
+  &boxv;      &boxvr;&boxh;&boxh; HandlerModule
+  &boxv;      &boxur;&boxh;&boxh; ViewModelModule
   &boxur;&boxh;&boxh; presentation
         &boxvr;&boxh;&boxh; extensions
         &boxvr;&boxh;&boxh; model
         &boxvr;&boxh;&boxh; extensions
         &boxur;&boxh;&boxh; handler
-              &boxur;&boxh;&boxh; ImageSaveHandler (이미지 갤러리 저장)
+        &boxv;      &boxur;&boxh;&boxh; ImageSaveHandler (이미지 갤러리 저장)
         &boxur;&boxh;&boxh; utils
-              &boxvr;&boxh;&boxh; dialog
-              &boxvr;&boxh;&boxh; drawable
-              &boxur;&boxh;&boxh; toast
+        &boxv;      &boxvr;&boxh;&boxh; dialog
+        &boxv;      &boxvr;&boxh;&boxh; drawable
+        &boxv;      &boxur;&boxh;&boxh; toast
         &boxur;&boxh;&boxh; view (Custom View)
-              &boxvr;&boxh;&boxh; DrawingView (화면에 그려지는 뷰)
-              &boxvr;&boxh;&boxh; EraserPreView (지우개 두께 조절 미리보기)
-              &boxur;&boxh;&boxh; PenPreView (펜 두께 조절 미리보기)
+        &boxv;      &boxvr;&boxh;&boxh; DrawingView (화면에 그려지는 뷰)
+        &boxv;      &boxvr;&boxh;&boxh; EraserPreView (지우개 두께 조절 미리보기)
+        &boxv;      &boxur;&boxh;&boxh; PenPreView (펜 두께 조절 미리보기)
         &boxur;&boxh;&boxh; ui
               &boxur;&boxh;&boxh; main (Activity, ViewModel)
   
