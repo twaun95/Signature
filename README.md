@@ -4,7 +4,7 @@
 
 |  배경 색상 변경 | 펜 색상 변경 |
 |:----------:|:----------:|
-| <video src="https://user-images.githubusercontent.com/43190509/194597998-8db753db-3157-4c8b-a3d1-732aa8f380d2.mp4" width="200" height="400" /> | <video src="https://user-images.githubusercontent.com/43190509/194597998-8db753db-3157-4c8b-a3d1-732aa8f380d2.mp4" width="200" height="400"/> |
+| <video src="https://user-images.githubusercontent.com/43190509/194605469-186afd9c-256b-45ca-8b1b-1275095b964d.mp4" width="200" height="400" /> | <video src="https://user-images.githubusercontent.com/43190509/194605469-186afd9c-256b-45ca-8b1b-1275095b964d.mp4" width="200" height="400"/> |
 
 
 # Description
