@@ -7,13 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
 
     <color name="primary">#3F51B5</color>
     <color name="primary_variant">#5163C8</color>
     <color name="primary_variant_sub">#6374D6</color>
 
     <color name="secondary">#FF6671F6</color>
-    <color name="secondary_variant">#FFBB86FC</color>
+    <color name="secondary_variant">#7983F8</color>
 
     <color name="mono1">#FFFFFF</color>
     <color name="mono2">#F1F4F8</color>
@@ -22,9 +23,6 @@
     <color name="mono5">#C5CAD2</color>
 
     <color name="color_pen">#FF000000</color>
-
-    <color name="transparent">#00000000</color>
-
     <color name="dialog_opacity_background">#B3000000</color>
 
     <color name="toast_background">#FFFFFFFF</color>
