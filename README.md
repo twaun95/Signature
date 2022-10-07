@@ -1,9 +1,10 @@
 # Signature
 (스토어 링크)
 (이미지)
-|  1 | 2 |
+
+|  배경 색상 변경 | 펜 색상 변경 |
 |:----------:|:----------:|
-| 좌우 스크롤 | 좌우 상하 스크롤 |
+| <video src="https://user-images.githubusercontent.com/43190509/194597998-8db753db-3157-4c8b-a3d1-732aa8f380d2.mp4" width="200" height="400"/> | <video src="https://user-images.githubusercontent.com/43190509/194597998-8db753db-3157-4c8b-a3d1-732aa8f380d2.mp4" width="200" height="400"/> |
 
 
 # Description
