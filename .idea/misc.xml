@@ -17,6 +17,8 @@
         <entry key="app/src/main/res/layout/fragment_dialog_pen_width.xml" value="0.25" />
         <entry key="app/src/main/res/layout/view_flag.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/view_toast.xml" value="0.28125" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1385" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1385" />
       </map>
     </option>
   </component>
