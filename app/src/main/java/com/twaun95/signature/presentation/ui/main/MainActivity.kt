@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = this.viewModel
 
         setEvent()
-        setFirebase()
     }
 
     private fun setEvent() {
@@ -90,15 +89,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setFirebase() {
-        val crashButton = Button(this)
-        crashButton.text = "Test Crash"
-        crashButton.setOnClickListener {
-            throw RuntimeException("Test Crash") // Force a crash
-        }
-
-        addContentView(crashButton, ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT))
-    }
+// Firebase Crashlytics 테스트
+//    private fun setFirebase() {
+//        val crashButton = Button(this)
+//        crashButton.text = "Test Crash"
+//        crashButton.setOnClickListener {
+//            throw RuntimeException("Test Crash") // Force a crash
+//        }
+//
+//        addContentView(crashButton, ViewGroup.LayoutParams(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT))
+//    }
 }
