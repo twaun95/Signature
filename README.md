@@ -61,6 +61,7 @@
 - DataBinding
 - LiveData
 - CustomView
+- FireBase(App Distribution, Crashlytics)
 
 # Environment
 - Android Studio Chipmunk 2021.2.1
