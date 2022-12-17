@@ -1,8 +1,18 @@
 # Signature
-(스토어 링크)
-(이미지)
+
+|  배경 색상 변경 | 펜 색상 변경 | 펜 굵기 |
+|:----------:|:----------:|:----------:|
+| <video src="https://user-images.githubusercontent.com/43190509/194696716-9aad7146-2ea4-438f-a1df-c3abcb468518.mp4" width="200" height="400" /> | <video src="https://user-images.githubusercontent.com/43190509/194696790-907b5ba7-d5ca-441f-ac28-31082eb75db0.mp4" width="200" height="400"/> | <video src="https://user-images.githubusercontent.com/43190509/194696797-4c254abd-4394-4582-bc24-fd909b6e6f7a.mp4" width="200" height="400" /> |
+
+| 지우개 | 초기화 | 저장 |
+|:----------:|:----------:|:----------:|
+| <video src="https://user-images.githubusercontent.com/43190509/194696804-35654224-9de6-4e36-a652-b0674ef6cff9.mp4" width="200" height="400"/> | <video src="https://user-images.githubusercontent.com/43190509/194696813-8beaa2c1-63b5-47dc-b766-01de2f2d2008.mp4" width="200" height="400" /> | <video src="https://user-images.githubusercontent.com/43190509/194696816-98f4c7a4-9fc0-40a7-beff-ba07c8355617.mp4" width="200" height="400"/> |
+
 
 # Description
+
+[🔗 구글 스토어 링크](https://play.google.com/store/apps/details?id=com.twaun95.signature)
+
 손가락으로 쉽고 빠르게 그림을 그려보세요.
 
 문득 영감이 떠올랐을 때 재빠르게 그린 후에 사진첩에 저장하세요.
