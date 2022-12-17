@@ -2,6 +2,8 @@ package com.twaun95.signature.presentation.ui.main
 
 import android.Manifest
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = this.viewModel
 
         setEvent()
+        setFirebase()
     }
 
     private fun setEvent() {
@@ -85,5 +88,17 @@ class MainActivity : AppCompatActivity() {
             //그림 저장
             ImageSaveHandler.saveImageGallery(this, binding.viewDrawing.getBitmap())
         }
+    }
+
+    private fun setFirebase() {
+        val crashButton = Button(this)
+        crashButton.text = "Test Crash"
+        crashButton.setOnClickListener {
+            throw RuntimeException("Test Crash") // Force a crash
+        }
+
+        addContentView(crashButton, ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT))
     }
 }
